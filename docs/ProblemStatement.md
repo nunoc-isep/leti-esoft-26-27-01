@@ -2,90 +2,128 @@
 
 ## 1. Preamble
 
-This document presents a (simulated) context in which a company intends to explore and validate a new business idea. 
-To this end, the company decided to start the development of a new software product (prototype) in collaboration with the faculty and students of LETI-ESOFT.
-Thus, the software product described hereinafter is adapted, on the one hand, to promote:
+This document presents a simulated context in which UK Labs, an English company that has a network
+of clinical analysis laboratories, intends to explore and validate an application to manage the clinical
+analyses performed in its laboratories. To this end, the organization decided to start the development
+of a new software product (prototype) in collaboration with the faculty and students of LETI-ESOFT.
 
-- the consolidation and acquisition of new competencies related to software development;
-- the practice and internalization of the recommended working method and presented best practices, which are commonly used in the software industry;
+The software product described herein is, on the one hand, designed to promote:
 
-and, on the other hand, to facilitate presenting and lecturing the contents and competencies described in the LETI-ESOFT syllabus throughout the semester.
+1. The consolidation and acquisition of new competencies related to software development, by
+students.
+2. The practice and internalization of the recommended working methods and best practices
+   commonly adopted in the software industry.
 
-Therefore, it will be used as a (small) scenario for demonstrations and practical exercises.
+On the other hand, the software product is used to evaluate students throughout the semester, in
+alignment with the approved [course syllabus](https://portal.isep.ipp.pt/intranet/education/visualiza_ficha_uc_v10.aspx?cde=85330) (cf. ISEP Portal).
 
+For the project’s development, students must form teams of four elements (exceptionally three) from
+the same lab class and communicate their composition to the LETI-ESOFT faculty (cf. formalized
+[groups/teams](https://moodle.isep.ipp.pt/pluginfile.php/107231/mod_resource/content/18/LETI-ESOFT26-27-Teams.pdf) on Moodle). Each team will operate as an independent supplier company, competing to
+be selected/hired to deliver the intended software product. To achieve this, all teams need to develop
+a prototype meeting all (or most) of the specified software requirements and demonstrate that their
+development process ensures high product quality, while employing appropriate working methods and
+industry best practices.
 
-## 2. Company Presentation
+## 2. Intended Software Product
 
-**Software for Joe, S.A.** (_**S4J**_) [1] is a startup company based in Porto (Portugal) whose mission is to provide IT solutions (applications) focused and oriented to the daily needs of individual people. 
+*UK Labs* is an English company that wants an application to manage the clinical analyses performed in
+its network of clinical analysis laboratories. The software application should be conceived having in
+mind that it can be further commercialized to other companies besides *UK Labs*.
 
-After its last success with an application that allows the management, control, and monitoring of personal expenses, the company decided to expand its product portfolio by developing an application that facilitates the registration, control and monitoring of personal tasks. 
+### 2.1 Business Context
 
-To pursue that goal, as _**S4J**_ does not currently have the free capacity, it decided to subcontract software development services to LETI-ESOFT.
+*UK Labs* operates in the English market. It has headquarters in London and a network of clinical analysis
+laboratories spread across England, where different types of analysis are performed, as well as
+Covid-19 tests. In England, *UK Labs* has exclusivity for Covid-19 testing throughout the territory, which means that no other company can perform this type of testing. However, only a subset of its
+laboratories performs Covid-19 tests.
 
-\
-[1] A fictional company.
+The set of UK Labs clinical analysis laboratories form a network that covers all England, and it is
+responsible for collecting samples and interacting with clients. The samples collected by the network
+of laboratories are then sent to the chemical laboratory located in the company's headquarters and
+the chemical analyses are performed there.
 
+Laboratories are characterized by a code, an address, a phone number, an e-mail address and
+opening/closing hour. As the allocation of receptionists and clinical/medical staff to the laboratories
+might be complex, by now, the system might assume that receptionists and clinical/medical staff can
+work on any laboratory.
 
-## 3. Intended Software Product
+Typically, the client arrives at one of the clinical analysis laboratories with a lab order prescribed by a
+doctor. Once there, a receptionist asks for the client’s citizen card number and the lab order (which
+contains the type of test and the parameters to be measured), and registers in the application the test
+to be performed to that client. The date of the prescription as well as the date and the laboratory
+where the samples will be collected are also associated with the test. Then, the client should wait until
+a medical lab technician calls him/her to collect the samples required to perform the test.
 
-The application to be developed essentially aims to allow the recording of personal tasks, as well as their control and monitoring. 
-In this sense, all functionalities described hereinafter are centered and are carried out by the user/person registered to use the application. 
-Regarding the user registration method, user data collection (e.g. name and email) and authentication process, it is expected that this will be done through an integration with the  _JoeProfiles_ system already in use in the company.
-Unregistered users can only access to generic information as, for instance, a description of the application goals and to the application credits.
+The type of test is characterized by an internal code, an NHS code and a description that identifies the
+sample collection method. Each parameter is characterized by a unique code, a name, a description, a
+metric (e.g. g/dL, mg/dL, U/l) and reference values (minimum and maximum), if applicable.
 
-At this moment, it is envisaged that users might categorize tasks using a predefined set of categories maintained by the System Administrator. By simplicity, a category just comprehends a unique alphanumeric code and a brief description.
+Blood tests are frequently characterized by measuring several parameters such as the number of Red
+Blood Cells (RBC), White Blood Cells (WBC), Platelets (PLT), among others. Covid tests are characterized
+by measuring a single parameter stating whether it is a positive or a negative result. The system should
+be developed having in mind the need to easily support other types of tests, regardless of whether
+they are based on measuring one or more parameters.
 
-On the other hand, a task is characterized by having a unique reference, a title, an informal description, and another of a more technical nature, and effort estimation as well as the deadline to be accomplished and the category in which it fits in.
+In case of a new client, the receptionist registers him/her in the application. To register a client, the
+receptionist needs the client’s name, citizen card number, National Healthcare Service (NHS) number,
+date of birth, sex, Tax Identification number (TIF), phone number and e-mail address.
 
-It is intended that the application is capable of alerting the user for tasks whose deadline for completion is approaching and/or has already passed.
-Hence, the user must be able to record the beginning and end of tasks.
+All the tests (e.g. blood, urine, Covid-19) performed by the network of laboratories are registered
+locally by the medical lab technicians who collect the samples. The samples are sent daily to the
+chemical laboratory where the chemical analyses are performed, and results obtained. When sampling
+(e.g. blood or urine sample, swab) the medical lab technician records the samples in the system,
+associating them with the client/test, and identifying each sample with a barcode that is automatically
+generated using an external API.
 
-Exploring the collected information, the user must be also able to access a set of reports comprehending statistical data about his/her performance in a given period of time (e.g. week, month). 
-As an example, a report might state the number of completed tasks, the amount of time spent on completing such tasks, the average of time spent on each task; while another report might show a comparison between the predicted effort and the effort really spent on each task.
+At the company's headquarters, the clinical chemistry technologist receives the samples (delivered by
+a courier) and performs the chemical analysis, recording the results in the software application. For
+each parameter, the clinical chemistry technologist records the value obtained and the date and time
+of the chemical analysis.
 
-While developing this system, the team must: 
+After completing the chemical analysis, the results are examined by a specialist doctor who makes a
+diagnosis and writes a report that will be available to the client. The client only has access to the results
+after the report has been prepared by the specialist doctor. To facilitate the access to results, the
+application must allow sorting by the client’s TIF or by the client’s name.
 
-- adopt the best OO software development practices, such as TDD and the application of GRASP and SOLID patterns;
-- adopt the English language as the default for development artifacts, including code;
-- implement the core software parts (i.e. the domain business and logic) in C++.
+Finally, after the specialist doctor has completed the diagnosis, the results of the clinical analyses and
+the report become available in the system and the client receives a notification (by SMS and/or e-mail)
+alerting that the results are already available in the central application and informing that he/she must
+access the application to view those results.
 
-At last, _**S4J**_ recommends the team to concentrate efforts on the development of the domain business logic, which should be widely verified/validated by automatic regression tests.
-A rudimentary console User Interface (UI) might be developed just for demonstration purposes (e.g. Sprint Review) since,
-further on, it is envisaged that the UI will consist of a mobile application which, by now, is out of scope.
+The UK Labs has administrators who are responsible for properly configuring and managing the core
+information (e.g. test types, parameters, clinical analysis laboratories, employees) required for the
+application to be operated daily by receptionists, clients, medical lab technicians, etc.
 
-
-## 4. Sprints
+## 3. Sprints
 
 As the team should adopt a Software Development Process (SDP) relying on the Iterative and Incremental (I&I) principles,
 the project requirements and their priorities are organized in sprints and described by means of User Stories (US).
 
 User stories are used to specify the main goals of each sprint. They are presented from the perspective of system users and their respective roles. In addition, the Project Manager role is used to capture requirements that are not directly associated with any specific system user.
 
-### 4.1 Sprint 1
+### 3.1 Sprint 1
 
 Requirements:
 
-- As Project Manager, I want the team to construct a glossary for the current project.
-- As Project Manager, I want the team to investigate the project's functional and non-functional requirements and capture them using both a Use Case Diagram and a Supplementary Specification document.
-- As Project Manager, I want the team to elaborate a domain model that reflects its understanding of the application domain, including the rationale behind the identification of concepts and associations.
+- As Project Manager, I want the team to setup its own working environment (e.g. repository).
+[Priority: High]
+- As Project Manager, I want the team to construct a glossary for the current project. [Priority: High]
+- As Project Manager, I want the team to investigate the project’s functional and non-functional
+requirements and capture them using both a Use Case Diagram and a Supplementary Specification
+document. [Priority: High]
+- As Project Manager, I want the team to elaborate a domain model that reflects its understanding
+of the application domain, including the rationale behind the identification of concepts and
+associations. [Priority: High]
 
-### 4.2 Sprint 2
-
-User stories:
-
-- **US01 -** As System Administrator, I want to create a new category.
-  - AC01-1: The category code cannot be empty or have less than five characters.
-  - AC01-2: The category description cannot be empty.
-- **US02 -** As System Administrator, I want to see a list of all existing categories.
-- **US03 -** As System Administrator, I want to update the description of an existing category.
-- **US04 -** As System Administrator, I want to delete an existing category.
-- **US05 -** As Person, I want to define a new task that I have to complete.
-  - AC05-1: The task reference, title, and category are mandatory. The remaining data is optional.
-
-### 4.3 Sprint 3
+### 3.2 Sprint 2
 
 (to be defined)
 
-### 4.4 Sprint 4
+### 3.3 Sprint 3
+
+(to be defined)
+
+### 3.4 Sprint 4
 
 (to be defined)
