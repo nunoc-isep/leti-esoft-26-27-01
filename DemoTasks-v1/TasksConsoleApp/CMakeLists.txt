@@ -1,0 +1,5 @@
+project(TasksConsoleApp)
+
+add_executable(TasksConsoleApp TasksConsoleApp.cpp sources/views/WelcomeView.cpp headers/views/WelcomeView.h sources/views/Utils.cpp headers/views/Utils.h sources/views/BaseView.cpp headers/views/BaseView.h sources/views/MenuView.cpp headers/views/MenuView.h sources/views/NoAuthMenuView.cpp headers/views/NoAuthMenuView.h sources/views/AuthMenuView.cpp headers/views/AuthMenuView.h sources/views/AdminMenuView.cpp headers/views/AdminMenuView.h sources/views/CategoriesMenuView.cpp headers/views/CategoriesMenuView.h sources/views/CreateCategoryView.cpp headers/views/CreateCategoryView.h sources/views/BaseAuthView.cpp headers/views/BaseAuthView.h sources/views/ListCategoriesView.cpp headers/views/ListCategoriesView.h sources/views/UpdateCategoryView.cpp headers/views/UpdateCategoryView.h sources/views/DeleteCategoryView.cpp headers/views/DeleteCategoryView.h)
+
+target_link_libraries(TasksConsoleApp TasksCore)

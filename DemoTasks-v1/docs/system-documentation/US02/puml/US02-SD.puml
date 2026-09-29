@@ -1,0 +1,37 @@
+@startuml
+autoactivate on
+autonumber
+
+actor "System\nAdministrator" as User
+participant ":ListCategoryView" as View
+participant ":ListCategoryController" as Ctrl
+participant App
+participant "app:App" as AppInstance
+participant "container:CategoryContainer" as Container
+participant "list:List<Category>" as List
+participant "cat:Category" as Category
+
+activate User
+
+User -> View: asks to list categories
+
+View --> Ctrl** : create()
+
+View -> Ctrl: getAll()
+
+Ctrl -> App: getInstance()
+App --> Ctrl: app
+Ctrl -> AppInstance: getCategoryContainer()
+AppInstance --> Ctrl: container
+
+Ctrl -> Container: getAll()
+Container --> Ctrl: list
+Ctrl --> View: list
+loop for each cat in list
+    View -> Category: getCode()
+    Category --> View: code
+    View -> Category: getDescription()
+    Category --> View: description
+    View --> User: shows code + description
+end loop
+@enduml

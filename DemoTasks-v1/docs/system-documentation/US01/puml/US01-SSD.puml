@@ -1,0 +1,19 @@
+@startuml
+autoactivate on
+autonumber
+
+actor "System\nAdministrator" as Admin
+participant ":System" as System
+
+activate Admin
+
+Admin -> System: asks to create a new category
+System --> Admin: requests data (code, description)
+
+Admin -> System: types requested data
+System --> Admin: shows all data and requests confirmation
+
+Admin -> System: confirms the data
+System --> Admin: informs operation success
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+class DeleteCategoryView {
+}
+
+class DeleteCategoryController {
+    + getAll(): List<Category>
+    + deleteCategory(string code): Result
+}
+
+class App {
+    - App()
+    + {static} getInstance(): App
+    + getCategoryContainer(): CategoryContainer
+}
+
+class CategoryContainer {
+    + getAll(): List<Category>
+    + remove(Category obj): Result
+    + findById(string code): Category
+}
+
+class Category {
+    - code
+    - description
+    Category(string code, string description)
+    + getCode(): string
+    + getDescription(): string
+}
+
+DeleteCategoryView ..> DeleteCategoryController
+DeleteCategoryView .> Category
+
+DeleteCategoryController ..> App
+DeleteCategoryController .> CategoryContainer
+DeleteCategoryController .> Category
+
+App --> "1 " CategoryContainer: maintains
+
+CategoryContainer -> "  * " Category: records
+@enduml

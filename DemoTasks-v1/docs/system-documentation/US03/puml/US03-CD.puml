@@ -1,0 +1,45 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+class UpdateCategoryView {
+}
+
+class UpdateCategoryController {
+    + getAll(): List<Category>
+    + updateCategory(string code, string description): Result
+}
+
+class App {
+    - App()
+    + {static} getInstance(): App
+    + getCategoryContainer(): CategoryContainer
+}
+
+class CategoryContainer {
+    + getAll(): List<Category>
+    + save(Category obj): Result
+    + findById(string code): Category
+}
+
+class Category {
+    - code
+    - description
+    Category(string code, string description)
+    + getCode(): string
+    + getDescription(): string
+    + changeDescription(string description): Result
+}
+
+UpdateCategoryView ..> UpdateCategoryController
+UpdateCategoryView .> Category
+
+UpdateCategoryController ..> App
+UpdateCategoryController ..> CategoryContainer
+UpdateCategoryController .> Category
+
+App -> "1" App : instance
+App --> "1 " CategoryContainer: maintains
+
+CategoryContainer -> "  * " Category: records
+@enduml
