@@ -1,0 +1,40 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+class ListCategoryView {
+}
+
+class ListCategoryController {
+    + getAll(): List<Category>
+}
+
+class App {
+    - App()
+    + {static} getInstance(): App
+    + getCategoryContainer(): CategoryContainer
+}
+
+class CategoryContainer {
+    + getAll(): List<Category>
+}
+
+class Category {
+    - code
+    - description
+    Category(string code, string description)
+    + getCode(): string
+    + getDescription(): string
+}
+
+ListCategoryView ..> ListCategoryController
+ListCategoryView ..> Category
+
+ListCategoryController ..> App
+ListCategoryController .> CategoryContainer
+
+App -> "1" App : instance
+App --> "1 " CategoryContainer: maintains
+
+CategoryContainer -> "  * " Category: records
+@enduml

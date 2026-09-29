@@ -1,0 +1,34 @@
+@startuml
+hide methods
+hide circle
+skinparam classAttributeIconSize 0
+
+class Person {
+    name
+}
+
+class "System\nAdministrator" {
+}
+
+class Task {
+    reference
+    title
+    informalDescription
+    technicalDescription
+    effortEstimation
+    deadline
+}
+
+class Category {
+    code
+    description
+}
+
+class JoeProfiles {
+}
+
+Person " * " -- "1 " JoeProfiles : registered in >
+Person "1   " - "   *" Task : defines >
+"System\nAdministrator" "1  " -- "*" Category : maintains >
+Task " * " -- "1    " Category : categorized in >
+@enduml

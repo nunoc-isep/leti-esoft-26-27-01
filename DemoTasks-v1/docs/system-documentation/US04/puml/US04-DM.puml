@@ -1,0 +1,16 @@
+@startuml
+hide methods
+hide circle
+skinparam classAttributeIconSize 0
+
+class "System\nAdministrator" {
+}
+
+class Category {
+    code
+    description
+}
+
+"System\nAdministrator" "1   " - "   *" Category : maintains >
+
+@enduml

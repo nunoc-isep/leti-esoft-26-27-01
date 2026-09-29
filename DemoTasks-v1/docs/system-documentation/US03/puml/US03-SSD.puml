@@ -1,0 +1,19 @@
+@startuml
+autoactivate on
+autonumber
+
+actor "System\nAdministrator" as Admin
+participant ":System" as System
+
+activate Admin
+
+Admin -> System: asks to update description of a category
+System --> Admin: shows all existing categories and \n asks to select the one to be updated
+
+Admin -> System: selects the intended category
+System --> Admin: shows description of the select category \n and requests the new description
+
+Admin -> System: types the new description
+System --> Admin: informs operation success
+
+@enduml

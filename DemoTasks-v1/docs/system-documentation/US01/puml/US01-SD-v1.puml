@@ -1,0 +1,57 @@
+@startuml
+autoactivate on
+autonumber
+
+actor "System\nAdministrator" as User
+participant ":CreateCategoryView" as View
+participant ":CreateCategoryController" as Ctrl
+participant App
+participant "app:App" as AppInstance
+participant "container:CategoryContainer" as Container
+participant "cat:Category" as Category
+
+activate User
+
+User -> View: asks to create a new category
+
+View --> Ctrl** : create()
+
+View -> Ctrl: createCategory()
+
+Ctrl -> App: getInstance()
+App --> Ctrl: app
+Ctrl -> AppInstance: getCategoryContainer()
+AppInstance --> Ctrl: container
+
+Ctrl -> Container: create()
+Container --> Category**: create()
+Container --> Ctrl: cat
+Ctrl --> View: ok
+View --> User: requests data (code, description)
+
+User -> View: types requested data
+View -> Ctrl: setData(code, description)
+Ctrl -> Category: setCode(code)
+Category -->Ctrl: ok
+Ctrl -> Category: setDescription(description)
+Category --> Ctrl: ok
+Ctrl -> Container: validate(cat)
+Container -> Category: isValid()
+Category --> Container: ok
+Container -> Container: checkDuplicates(cat)
+Container --> Container : ok
+Container --> Ctrl: ok
+Ctrl --> View: ok
+View --> User: shows all data and requests confirmation
+
+User -> View: confirms the data
+View -> Ctrl: saveCreatedCategory()
+Ctrl -> Container: save(cat)
+Container -> Container : validate(cat)
+Container --> Container : ok
+Container -> Container: add(cat)
+Container --> Container : ok
+Container --> Ctrl: ok
+Ctrl --> View: ok
+View --> User: informs operation success
+@enduml

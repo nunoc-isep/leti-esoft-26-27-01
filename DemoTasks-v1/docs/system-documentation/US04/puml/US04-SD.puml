@@ -1,0 +1,49 @@
+@startuml
+autoactivate on
+autonumber
+
+actor "System\nAdministrator" as User
+participant ":DeleteCategoryView" as View
+participant ":DeleteCategoryController" as Ctrl
+participant App
+participant "app:App" as AppInstance
+participant "container:CategoryContainer" as Container
+participant "list:List<Category>" as List
+participant "cat:Category" as Category
+
+activate User
+
+User -> View: asks to delete a category
+
+View --> Ctrl** : create()
+
+View -> Ctrl: getAll()
+
+Ctrl -> App: getInstance()
+App --> Ctrl: app
+Ctrl -> AppInstance: getCategoryContainer()
+AppInstance --> Ctrl: container
+
+Ctrl -> Container: getAll()
+Container --> Ctrl: list
+Ctrl --> View: list
+View --> User: shows all existing categories and \n asks to select the one to be deleted
+
+User -> View: selects the intended category
+View -> View: findSelectedCategory()
+View --> View: cat
+View -> Category: getCode()
+Category --> View: code
+View -> Category: getDescription()
+Category --> View: description
+View --> User: shows code and description of the select category \n and requests a deleting confirmation
+
+User -> View: confirms
+View -> Ctrl:deleteCategory(code)
+Ctrl -> Container: findById(code)
+Container --> Ctrl: cat
+Ctrl -> Container: remove(cat)
+Container --> Ctrl: ok
+Ctrl --> View: ok
+View --> User: informs operation success
+@enduml

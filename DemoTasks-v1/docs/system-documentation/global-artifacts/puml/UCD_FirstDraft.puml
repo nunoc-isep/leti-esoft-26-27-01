@@ -1,0 +1,43 @@
+@startuml
+title Use Case Diagram - First Draft
+
+left to right direction
+
+actor Time as System
+actor "Unregistered\n      User" as NotAuthUser
+actor "Registered User\n    / Person" as Person
+actor "    System\nAdministrator" as Admin
+
+(UC?? - Create a category) as CategoryCreate
+(UC?? - List all categories) as CategoryList
+(UC?? - Update a category) as CategoryUpdate
+(UC?? - Delete a category) as CategoryDelete
+
+(UC?? - Create a task) as TaskCreate
+(UC?? - List all tasks) as TaskList
+(UC?? - Update a task) as TaskUpdate
+(UC?? - Delete a task) as TaskDelete
+
+(UC?? - Get a Report) as GetReport
+
+(UC?? - Consult system goals) as SystemGoals
+(UC?? - Consult system credits) as SystemCredits
+
+(UC?? - Alert for task completion approaching) as TaskAlert
+
+Admin --> CategoryCreate
+Admin --> CategoryList
+Admin --> CategoryUpdate
+Admin --> CategoryDelete
+
+Person --> TaskCreate
+Person --> TaskList
+Person --> TaskUpdate
+Person --> TaskDelete
+Person --> GetReport
+
+NotAuthUser --> SystemGoals
+NotAuthUser --> SystemCredits
+
+System --> TaskAlert
+@enduml

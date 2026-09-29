@@ -1,0 +1,19 @@
+@startuml
+autoactivate on
+autonumber
+
+actor "System\nAdministrator" as Admin
+participant ":System" as System
+
+activate Admin
+
+Admin -> System: asks to delete a category
+System --> Admin: shows all existing categories and \n asks to select the one to be deleted
+
+Admin -> System: selects the intended category
+System --> Admin: shows category data of the select category \n and requests a deleting confirmation
+
+Admin -> System: confirms deleting selected category
+System --> Admin: informs operation success
+
+@enduml

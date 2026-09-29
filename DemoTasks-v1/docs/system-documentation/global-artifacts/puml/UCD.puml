@@ -1,0 +1,45 @@
+@startuml
+title Use Case Diagram - Updated for Sprint 2
+
+left to right direction
+
+actor Time as System
+actor "Unregistered\n      User" as NotAuthUser
+actor Person as Person
+note right: Please notice that the actor's \nname has been clarified
+actor "    System\nAdministrator" as Admin
+
+(UC01 - Create a category) as CategoryCreate
+(UC02 - List all categories) as CategoryList
+(UC03 - Update category description) as CategoryDescriptionUpdate
+note right: Please notice the \nchanges made here
+(UC04 - Delete a category) as CategoryDelete
+
+(UC05 - Create a task) as TaskCreate
+(UC?? - List all tasks) as TaskList
+(UC?? - Update a task) as TaskUpdate
+(UC?? - Delete a task) as TaskDelete
+
+(UC?? - Get a report) as GetReport
+
+(UC?? - Consult system goals) as SystemGoals
+(UC?? - Consult system credits) as SystemCredits
+
+(UC?? - Alert for task completion approaching) as TaskAlert
+
+Admin --> CategoryCreate
+Admin --> CategoryList
+Admin --> CategoryDescriptionUpdate
+Admin --> CategoryDelete
+
+Person --> TaskCreate
+Person --> TaskList
+Person --> TaskUpdate
+Person --> TaskDelete
+Person --> GetReport
+
+NotAuthUser --> SystemGoals
+NotAuthUser --> SystemCredits
+
+System --> TaskAlert
+@enduml
