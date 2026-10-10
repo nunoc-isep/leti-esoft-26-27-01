@@ -1,34 +1,62 @@
-@startuml
-hide methods
-hide circle
-skinparam classAttributeIconSize 0
+@startuml UKLabsMS_DomainModel
+title UKLabsMS - Domain Model (no attributes)
 
-class Person {
-    name
-}
+hide empty members
+left to right direction
+skinparam shadowing false
+skinparam classBackgroundColor #FFFFFF
+skinparam classBorderColor #444441
+skinparam ArrowColor #444441
 
-class "System\nAdministrator" {
-}
+' ---------- Staff ----------
+abstract class Employee
+class Receptionist
+class MedicalLabTechnician
+class ClinicalChemistryTechnologist
+class SpecialistDoctor
+class Administrator
 
-class Task {
-    reference
-    title
-    informalDescription
-    technicalDescription
-    effortEstimation
-    deadline
-}
+Employee <|-- Receptionist
+Employee <|-- MedicalLabTechnician
+Employee <|-- ClinicalChemistryTechnologist
+Employee <|-- SpecialistDoctor
+Employee <|-- Administrator
 
-class Category {
-    code
-    description
-}
+' ---------- Core concepts ----------
+class Client
+class Test
+class TestType
+class Parameter
+class Laboratory
+class Sample
+class TestResult
+class Report
+class Notification
 
-class JoeProfiles {
-}
+' ---------- Domain associations ----------
+Client "1" -- "0..*" Test : requests >
+Test "0..*" -- "1" Laboratory : collected at >
+Test "0..*" -- "1" TestType : is of >
+Test "0..*" -- "1..*" Parameter : measures >
+TestType "1..*" -- "1..*" Parameter : defines >
+Laboratory "1..*" -- "0..*" TestType : offers >
+Test "1" -- "1..*" Sample : has >
+Test "1" -- "0..*" TestResult : produces >
+TestResult "0..*" -- "1" Parameter : of >
+Report "0..1" -- "1" Test : concludes >
+Report "1" -- "1..*" Notification : triggers >
+Notification "0..*" -- "1" Client : is sent to >
 
-Person " * " -- "1 " JoeProfiles : registered in >
-Person "1   " - "   *" Task : defines >
-"System\nAdministrator" "1  " -- "*" Category : maintains >
-Task " * " -- "1    " Category : categorized in >
+' ---------- Who does what ----------
+Receptionist "1" -- "0..*" Client : registers >
+Receptionist "1" -- "0..*" Test : registers >
+MedicalLabTechnician "1" -- "0..*" Sample : collects >
+ClinicalChemistryTechnologist "1" -- "0..*" TestResult : records >
+SpecialistDoctor "1" -- "0..*" Report : writes >
+
+Administrator ..> TestType : manages
+Administrator ..> Parameter : manages
+Administrator ..> Laboratory : manages
+Administrator ..> Employee : manages
+
 @enduml
